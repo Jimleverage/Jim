@@ -5,10 +5,12 @@ import PortfolioSection from "@/components/PortfolioSection";
 import VoiceDemoSection from "@/components/VoiceDemoSection";
 import ToolsSection from "@/components/ToolsSection";
 import ContactSection from "@/components/ContactSection";
+import CursorGlow from "@/components/CursorGlow";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background constellation-bg">
+      <CursorGlow />
       <Navbar />
       <HeroSection />
       <ProcessSection />
