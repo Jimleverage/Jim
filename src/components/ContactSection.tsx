@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calendar, User } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 const openCalendly = () => {
   (window as any).Calendly?.initPopupWidget({
@@ -54,15 +54,6 @@ const ContactSection = () => {
             <span className="btn-primary px-8">Pick a Time</span>
           </div>
 
-          <a
-            href="https://jimleverage.lovable.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline flex items-center justify-center gap-2"
-          >
-            <User className="w-4 h-4" />
-            Meet Jimuel
-          </a>
         </motion.div>
       </div>
     </section>
