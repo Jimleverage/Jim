@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 const row1 = [
-  { name: "GoHighLevel", img: null, bg: "#1a1a2e", text: "GHL" },
+  { name: "GoHighLevel", img: null, text: "GHL" },
   { name: "Zapier", img: "https://cdn.simpleicons.org/zapier/FF4A00" },
   { name: "n8n", img: "https://cdn.simpleicons.org/n8n/EA4B71" },
   { name: "Make", img: "https://cdn.simpleicons.org/make/6D00CC" },
@@ -10,23 +10,46 @@ const row1 = [
   { name: "Notion", img: "https://cdn.simpleicons.org/notion/ffffff" },
   { name: "Airtable", img: "https://cdn.simpleicons.org/airtable/18BFFF" },
   { name: "Mailchimp", img: "https://cdn.simpleicons.org/mailchimp/FFE01B" },
+  { name: "Salesforce", img: "https://cdn.simpleicons.org/salesforce/00A1E0" },
+  { name: "ClickUp", img: "https://cdn.simpleicons.org/clickup/7B68EE" },
+  { name: "Trello", img: "https://cdn.simpleicons.org/trello/0052CC" },
+  { name: "Asana", img: "https://cdn.simpleicons.org/asana/F06A6A" },
+  { name: "Zendesk", img: "https://cdn.simpleicons.org/zendesk/03363D" },
+  { name: "Calendly", img: "https://cdn.simpleicons.org/calendly/006BFF" },
   { name: "Google", img: "https://cdn.simpleicons.org/google/4285F4" },
+  { name: "G. Sheets", img: "https://cdn.simpleicons.org/googlesheets/34A853" },
+  { name: "WhatsApp", img: "https://cdn.simpleicons.org/whatsapp/25D366" },
 ];
 
 const row2 = [
-  { name: "Canva", img: "https://cdn.simpleicons.org/canva/00C4CC" },
-  { name: "WordPress", img: "https://cdn.simpleicons.org/wordpress/21759B" },
-  { name: "Asana", img: "https://cdn.simpleicons.org/asana/F06A6A" },
-  { name: "Salesforce", img: "https://cdn.simpleicons.org/salesforce/00A1E0" },
   { name: "Gemini", img: "https://cdn.simpleicons.org/googlegemini/8E75B2" },
   { name: "Claude", img: "https://cdn.simpleicons.org/anthropic/D4A574" },
-  { name: "JavaScript", img: "https://cdn.simpleicons.org/javascript/F7DF1E" },
-  { name: "VAPI", img: null, bg: "#1a1a2e", text: "VAPI" },
-  { name: "Calendly", img: "https://cdn.simpleicons.org/calendly/006BFF" },
+  { name: "VAPI", img: null, text: "VAPI" },
+  { name: "ElevenLabs", img: "https://cdn.simpleicons.org/elevenlabs/ffffff" },
+  { name: "Perplexity", img: "https://cdn.simpleicons.org/perplexity/20808D" },
+  { name: "OpenAI", img: "https://cdn.simpleicons.org/openai/ffffff" },
+  { name: "DALL-E", img: "https://cdn.simpleicons.org/openai/ffffff" },
+  { name: "Midjourney", img: null, text: "MJ" },
+  { name: "Runway ML", img: null, text: "RML" },
+  { name: "SORA", img: null, text: "SORA" },
+  { name: "Nano Banana", img: null, text: "NB" },
+  { name: "Figma", img: "https://cdn.simpleicons.org/figma/F24E1E" },
+  { name: "Canva", img: "https://cdn.simpleicons.org/canva/00C4CC" },
   { name: "CapCut", img: "https://cdn.simpleicons.org/capcut/ffffff" },
+  { name: "OpusClip", img: null, text: "Opus" },
+  { name: "Premiere", img: "https://cdn.simpleicons.org/adobepremierepro/9999FF" },
+  { name: "After Effects", img: "https://cdn.simpleicons.org/adobeaftereffects/9999FF" },
+  { name: "Facebook", img: "https://cdn.simpleicons.org/facebook/1877F2" },
+  { name: "Instagram", img: "https://cdn.simpleicons.org/instagram/E4405F" },
+  { name: "LinkedIn", img: "https://cdn.simpleicons.org/linkedin/0A66C2" },
+  { name: "X / Twitter", img: "https://cdn.simpleicons.org/x/ffffff" },
+  { name: "Pinterest", img: "https://cdn.simpleicons.org/pinterest/BD081C" },
+  { name: "YouTube", img: "https://cdn.simpleicons.org/youtube/FF0000" },
+  { name: "WordPress", img: "https://cdn.simpleicons.org/wordpress/21759B" },
+  { name: "JavaScript", img: "https://cdn.simpleicons.org/javascript/F7DF1E" },
 ];
 
-type Tool = { name: string; img?: string | null; bg?: string; text?: string };
+type Tool = { name: string; img?: string | null; text?: string };
 
 const ToolCard = ({ tool }: { tool: Tool }) => (
   <div className="flex flex-col items-center gap-2 mx-3">
@@ -34,7 +57,7 @@ const ToolCard = ({ tool }: { tool: Tool }) => (
       {tool.img ? (
         <img src={tool.img} alt={tool.name} className="w-12 h-12 object-contain" />
       ) : (
-        <span className="text-base font-bold text-[hsl(180,100%,50%)]">{tool.text}</span>
+        <span className="text-sm font-bold text-[hsl(180,100%,50%)]">{tool.text}</span>
       )}
     </div>
     <span className="text-sm text-muted-foreground whitespace-nowrap">{tool.name}</span>
