@@ -25,83 +25,92 @@ type Props = {
 
 const MIN = 1;
 const MAX = 4;
-const STEP = 0.4;
+const STEP = 0.5;
 
 const ImageViewer = ({ src, alt }: { src: string; alt: string }) => {
   const [scale, setScale] = useState(1);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStart = useRef({ x: 0, y: 0 });
-  const posStart = useRef({ x: 0, y: 0 });
+  const [dragging, setDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const dragOrigin = useRef({ x: 0, y: 0, scrollX: 0, scrollY: 0 });
+  const moved = useRef(false);
 
-  const zoom = useCallback((delta: number) => {
+  const zoom = (delta: number) => {
     setScale((s) => {
       const next = Math.min(MAX, Math.max(MIN, +(s + delta).toFixed(2)));
-      if (next === MIN) setPos({ x: 0, y: 0 });
+      if (next === MIN && containerRef.current) {
+        containerRef.current.scrollLeft = 0;
+        containerRef.current.scrollTop = 0;
+      }
       return next;
     });
-  }, []);
+  };
 
-  const reset = () => { setScale(1); setPos({ x: 0, y: 0 }); };
+  const reset = () => {
+    setScale(1);
+    if (containerRef.current) {
+      containerRef.current.scrollLeft = 0;
+      containerRef.current.scrollTop = 0;
+    }
+  };
 
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
     zoom(e.deltaY < 0 ? STEP : -STEP);
   };
 
-  const handleClick = () => {
-    if (isDragging) return;
-    zoom(scale >= MAX ? -(MAX - MIN) : STEP);
-  };
-
   const handleMouseDown = (e: React.MouseEvent) => {
     if (scale <= 1) return;
-    setIsDragging(false);
-    dragStart.current = { x: e.clientX, y: e.clientY };
-    posStart.current = { ...pos };
-    e.currentTarget.setPointerCapture((e.nativeEvent as PointerEvent).pointerId || 0);
-    window.addEventListener("mousemove", onMouseMove as any);
-    window.addEventListener("mouseup", onMouseUp as any);
+    moved.current = false;
+    setDragging(true);
+    dragOrigin.current = {
+      x: e.clientX,
+      y: e.clientY,
+      scrollX: containerRef.current?.scrollLeft ?? 0,
+      scrollY: containerRef.current?.scrollTop ?? 0,
+    };
+    e.preventDefault();
   };
 
-  const onMouseMove = (e: MouseEvent) => {
-    const dx = e.clientX - dragStart.current.x;
-    const dy = e.clientY - dragStart.current.y;
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) setIsDragging(true);
-    setPos({ x: posStart.current.x + dx, y: posStart.current.y + dy });
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!dragging || !containerRef.current) return;
+    const dx = e.clientX - dragOrigin.current.x;
+    const dy = e.clientY - dragOrigin.current.y;
+    if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved.current = true;
+    containerRef.current.scrollLeft = dragOrigin.current.scrollX - dx;
+    containerRef.current.scrollTop = dragOrigin.current.scrollY - dy;
   };
 
-  const onMouseUp = () => {
-    window.removeEventListener("mousemove", onMouseMove as any);
-    window.removeEventListener("mouseup", onMouseUp as any);
-    setTimeout(() => setIsDragging(false), 10);
+  const handleMouseUp = () => setDragging(false);
+
+  const handleClick = () => {
+    if (moved.current) return;
+    zoom(scale >= MAX ? -(MAX - MIN) : STEP);
   };
 
   return (
     <div
-      className="rounded-xl border border-white/8 mb-8 relative overflow-hidden"
+      className="rounded-xl border border-white/8 mb-8 relative"
       style={{ background: "linear-gradient(135deg, hsl(222,47%,7%) 0%, hsl(240,40%,12%) 50%, hsl(270,30%,10%) 100%)" }}
     >
-      {/* Grid background */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none"
+      {/* Grid bg */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none rounded-xl"
         style={{
           backgroundImage: "linear-gradient(hsl(180,100%,50%,0.2) 1px, transparent 1px), linear-gradient(90deg, hsl(180,100%,50%,0.2) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
 
-      {/* Zoom controls */}
+      {/* Controls */}
       <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1.5 border border-white/15">
-        <button onClick={() => zoom(STEP)} className="p-1 hover:text-[hsl(180,100%,50%)] transition-colors text-white/70" title="Zoom in">
+        <button onClick={() => zoom(STEP)} className="p-1 hover:text-[hsl(180,100%,50%)] transition-colors text-white/70">
           <ZoomIn className="w-4 h-4" />
         </button>
         <span className="text-xs text-white/50 w-9 text-center select-none">{Math.round(scale * 100)}%</span>
-        <button onClick={() => zoom(-STEP)} className="p-1 hover:text-[hsl(180,100%,50%)] transition-colors text-white/70" title="Zoom out">
+        <button onClick={() => zoom(-STEP)} className="p-1 hover:text-[hsl(180,100%,50%)] transition-colors text-white/70">
           <ZoomOut className="w-4 h-4" />
         </button>
         <div className="w-px h-3 bg-white/20 mx-0.5" />
-        <button onClick={reset} className="p-1 hover:text-[hsl(180,100%,50%)] transition-colors text-white/70" title="Reset">
+        <button onClick={reset} className="p-1 hover:text-[hsl(180,100%,50%)] transition-colors text-white/70">
           <RotateCcw className="w-3.5 h-3.5" />
         </button>
       </div>
@@ -110,31 +119,31 @@ const ImageViewer = ({ src, alt }: { src: string; alt: string }) => {
       {scale === 1 && (
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 px-3 py-1 bg-black/60 backdrop-blur-sm rounded-full border border-white/15 flex items-center gap-1.5 pointer-events-none">
           <ZoomIn className="w-3 h-3 text-[hsl(180,100%,50%)]" />
-          <span className="text-[11px] text-white/60">Click or scroll to zoom</span>
+          <span className="text-[11px] text-white/60">Click or scroll to zoom · Drag to pan</span>
         </div>
       )}
 
-      {/* Image area */}
+      {/* Scrollable container */}
       <div
         ref={containerRef}
-        className="overflow-hidden"
-        style={{ maxHeight: 420, cursor: scale > 1 ? (isDragging ? "grabbing" : "grab") : "zoom-in" }}
+        className="overflow-auto rounded-xl"
+        style={{ maxHeight: 420, cursor: scale > 1 ? (dragging ? "grabbing" : "grab") : "zoom-in" }}
         onWheel={handleWheel}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onClick={handleClick}
       >
-        <img
-          src={src}
-          alt={alt}
-          draggable={false}
-          onClick={handleClick}
-          onMouseDown={handleMouseDown}
-          className="w-full object-cover select-none"
-          style={{
-            filter: "contrast(1.05) saturate(1.1) brightness(1.02)",
-            transform: `scale(${scale}) translate(${pos.x / scale}px, ${pos.y / scale}px)`,
-            transformOrigin: "top center",
-            transition: isDragging ? "none" : "transform 0.25s ease",
-          }}
-        />
+        <div style={{ width: `${scale * 100}%`, transition: "width 0.2s ease" }}>
+          <img
+            src={src}
+            alt={alt}
+            draggable={false}
+            className="w-full block select-none"
+            style={{ filter: "contrast(1.05) saturate(1.1) brightness(1.02)" }}
+          />
+        </div>
       </div>
     </div>
   );
