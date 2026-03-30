@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Layers, Zap, BarChart2, ZoomIn } from "lucide-react";
+import { X, Layers, Zap, BarChart2, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
 export type Project = {
@@ -26,6 +26,36 @@ type Props = {
 const ProjectModal = ({ project, onClose }: Props) => {
   const [zoomed, setZoomed] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [scale, setScale] = useState(1);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const dragging = useRef(false);
+  const lastPos = useRef({ x: 0, y: 0 });
+
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    setScale((s) => Math.min(5, Math.max(1, s - e.deltaY * 0.001)));
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (scale <= 1) return;
+    dragging.current = true;
+    lastPos.current = { x: e.clientX, y: e.clientY };
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!dragging.current) return;
+    setPos((p) => ({
+      x: p.x + (e.clientX - lastPos.current.x),
+      y: p.y + (e.clientY - lastPos.current.y),
+    }));
+    lastPos.current = { x: e.clientX, y: e.clientY };
+  };
+
+  const handleMouseUp = () => { dragging.current = false; };
+
+  const resetZoom = () => { setScale(1); setPos({ x: 0, y: 0 }); };
+
+  const closeZoom = () => { setZoomed(false); resetZoom(); };
 
   useEffect(() => {
     if (project) document.body.style.overflow = "hidden";
@@ -199,15 +229,48 @@ const ProjectModal = ({ project, onClose }: Props) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 backdrop-blur-md cursor-zoom-out p-4"
-            onClick={() => setZoomed(false)}
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 backdrop-blur-md overflow-hidden"
+            style={{ cursor: scale > 1 ? "grab" : "default" }}
+            onWheel={handleWheel}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
           >
-            <button
-              className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-              onClick={() => setZoomed(false)}
-            >
-              <X className="w-5 h-5 text-white" />
-            </button>
+            {/* Controls */}
+            <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
+              <button
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                onClick={(e) => { e.stopPropagation(); setScale((s) => Math.min(5, s + 0.5)); }}
+              >
+                <ZoomIn className="w-5 h-5 text-white" />
+              </button>
+              <button
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                onClick={(e) => { e.stopPropagation(); setScale((s) => Math.max(1, s - 0.5)); if (scale <= 1.5) resetZoom(); }}
+              >
+                <ZoomOut className="w-5 h-5 text-white" />
+              </button>
+              <button
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                onClick={(e) => { e.stopPropagation(); resetZoom(); }}
+                title="Reset"
+              >
+                <Maximize2 className="w-5 h-5 text-white" />
+              </button>
+              <button
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                onClick={closeZoom}
+              >
+                <X className="w-5 h-5 text-white" />
+              </button>
+            </div>
+
+            {/* Scale indicator */}
+            <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/10 text-xs text-white/70">
+              {Math.round(scale * 100)}%
+            </div>
+
             <motion.img
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -215,11 +278,21 @@ const ProjectModal = ({ project, onClose }: Props) => {
               transition={{ duration: 0.2 }}
               src={imgSrc}
               alt="Zoomed workflow"
-              className="max-w-full max-h-full rounded-xl object-contain shadow-2xl"
-              style={{ filter: "contrast(1.08) saturate(1.15) brightness(1.05)" }}
+              className="max-w-full max-h-full rounded-xl object-contain shadow-2xl select-none"
+              style={{
+                filter: "contrast(1.08) saturate(1.15) brightness(1.05)",
+                transform: `scale(${scale}) translate(${pos.x / scale}px, ${pos.y / scale}px)`,
+                transformOrigin: "center center",
+                transition: dragging.current ? "none" : "transform 0.1s ease",
+                cursor: scale > 1 ? "grabbing" : "default",
+              }}
+              draggable={false}
               onClick={(e) => e.stopPropagation()}
             />
-            <p className="absolute bottom-6 text-xs text-white/50">Click anywhere to close</p>
+
+            <p className="absolute bottom-4 text-xs text-white/40">
+              Scroll to zoom · Drag to pan · Press reset to fit
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
