@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
 import { Calendar, Clock, MapPin, User } from "lucide-react";
 
+const openCalendly = () => {
+  (window as any).Calendly?.initPopupWidget({
+    url: "https://calendly.com/jimuel-pasion-pararuan/30min",
+  });
+};
+
 const ContactSection = () => {
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
@@ -71,15 +77,13 @@ const ContactSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href="https://calendly.com/jimuel-pasion-pararuan/30min"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={openCalendly}
                 className="btn-primary flex items-center justify-center gap-2"
               >
                 <Calendar className="w-4 h-4" />
                 Book a Call
-              </a>
+              </button>
               <a
                 href="https://jimleverage.lovable.app/"
                 target="_blank"
@@ -99,14 +103,18 @@ const ContactSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <div className="glass-card glow-border rounded-2xl overflow-hidden">
-              <iframe
-                src="https://calendly.com/jimuel-pasion-pararuan/30min"
-                width="100%"
-                height="600"
-                frameBorder="0"
-                title="Book a call"
-              />
+            <div
+              onClick={openCalendly}
+              className="glass-card glow-border rounded-2xl p-10 flex flex-col items-center justify-center gap-6 cursor-pointer hover:-translate-y-1 transition-transform duration-200 min-h-[320px]"
+            >
+              <div className="w-16 h-16 rounded-full bg-[hsl(180,100%,40%,0.12)] flex items-center justify-center">
+                <Calendar className="w-8 h-8 text-[hsl(180,100%,50%)]" />
+              </div>
+              <div className="text-center">
+                <p className="text-xl font-display font-bold mb-2">Book a Free Strategy Call</p>
+                <p className="text-muted-foreground text-sm">30 minutes · No commitment</p>
+              </div>
+              <span className="btn-primary px-8">Pick a Time</span>
             </div>
           </motion.div>
         </div>

@@ -215,7 +215,8 @@ const HeroSection = () => {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-8 -left-4 glass-card px-4 py-3 glow-border"
+                className="absolute bottom-8 -left-4 glass-card px-4 py-3 glow-border cursor-pointer hover:scale-105 transition-transform duration-200"
+                onClick={() => (window as any).Calendly?.initPopupWidget({ url: "https://calendly.com/jimuel-pasion-pararuan/30min" })}
               >
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-[hsl(180,100%,50%)]" />
