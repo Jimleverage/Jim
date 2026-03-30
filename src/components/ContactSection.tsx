@@ -31,10 +31,6 @@ const ContactSection = () => {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Ready to Automate Your Business?
           </p>
-          <p className="text-muted-foreground max-w-xl mx-auto mt-3">
-            Book a free 30-minute strategy call and let's map out exactly how automation can
-            save you hours every week.
-          </p>
         </motion.div>
 
         <motion.div
