@@ -99,7 +99,7 @@ const HeroSection = () => {
               I help businesses automate their workflows and reclaim their time using{" "}
               <span className="accent-text font-medium">GoHighLevel</span>,{" "}
               <span className="accent-text font-medium">Zapier</span>, and{" "}
-              <span className="accent-text font-medium">n8n</span> — so you can
+              <span className="accent-text font-medium">n8n</span> so you can
               focus on what actually grows your business.
             </motion.p>
 
