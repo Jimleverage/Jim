@@ -555,7 +555,7 @@ const PortfolioSection = () => {
                 {project.image ? (
                   <>
                     <img
-                      src={project.image}
+                      src={`${import.meta.env.BASE_URL}${project.image.replace(/^\//, "")}`}
                       alt={project.title}
                       className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                       style={{
