@@ -23,7 +23,7 @@ const projects: Project[] = [
       { label: "Cost Reduction (Staffing)", value: "80%" },
     ],
     tools: ["n8n", "VAPI", "Airtable", "Calendar APIs", "Webhooks"],
-    image: "/workflows/n8n-voice-receptionist.png",
+    image: "/workflows/n8n-voice-receptionist.jpg",
     metric: "24/7/365",
     metricLabel: "Call handling availability",
   },
@@ -44,7 +44,7 @@ const projects: Project[] = [
       { label: "Agent Time Saved Per Week", value: "30 hours" },
     ],
     tools: ["n8n", "Google Sheets", "Gemini AI", "Webhooks"],
-    image: "/workflows/n8n-customer-support.png",
+    image: "/workflows/n8n-customer-support.jpg",
     metric: "75%",
     metricLabel: "Tickets resolved by AI",
   },
@@ -65,7 +65,7 @@ const projects: Project[] = [
       { label: "Cost Savings (Manual)", value: "90%" },
     ],
     tools: ["n8n", "Gemini AI", "Video API", "Facebook Reels", "YouTube Shorts"],
-    image: "/workflows/n8n-video-production.png",
+    image: "/workflows/n8n-video-production.jpg",
     metric: "3 MINUTES",
     metricLabel: "Production time per video",
   },
@@ -86,7 +86,7 @@ const projects: Project[] = [
       { label: "Community Manager Time Saved", value: "10 hours/week" },
     ],
     tools: ["n8n", "Gemini AI", "Facebook API", "Webhooks"],
-    image: "/workflows/n8n-messenger-agent.png",
+    image: "/workflows/n8n-messenger-agent.jpg",
     metric: "24/7/365",
     metricLabel: "Availability",
   },
@@ -107,7 +107,7 @@ const projects: Project[] = [
       { label: "Posting Consistency", value: "Daily" },
     ],
     tools: ["n8n", "Gemini AI", "OpenWeatherMap", "Custom Image API", "Facebook API"],
-    image: "/workflows/n8n-weather-posting.png",
+    image: "/workflows/n8n-weather-posting.jpg",
     metric: "100%",
     metricLabel: "Content relevancy",
   },
@@ -128,7 +128,7 @@ const projects: Project[] = [
       { label: "User Interface", value: "Slack" },
     ],
     tools: ["n8n", "Slack API", "Google Gemini", "OpenRouter", "Google Docs API", "Gmail"],
-    image: "/workflows/n8n-recruitment-agent.png",
+    image: "/workflows/n8n-recruitment-agent.jpg",
     metric: "< 30 SEC",
     metricLabel: "Asset generation time",
   },
@@ -536,20 +536,45 @@ const PortfolioSection = () => {
               className="group rounded-xl bg-[hsl(222,47%,9%)] border border-white/8 overflow-hidden cursor-pointer hover:-translate-y-1 hover:border-[hsl(180,100%,40%,0.25)] hover:shadow-[0_0_24px_hsl(180,100%,40%,0.08)] transition-all duration-300"
             >
               {/* Image */}
-              <div className="relative h-44 bg-[#0d0d18] overflow-hidden">
+              <div className="relative h-52 overflow-hidden"
+                style={{
+                  background: "linear-gradient(135deg, hsl(222,47%,7%) 0%, hsl(240,40%,12%) 50%, hsl(270,30%,10%) 100%)",
+                }}
+              >
+                {/* Grid background pattern */}
+                <div className="absolute inset-0 opacity-20"
+                  style={{
+                    backgroundImage: "linear-gradient(hsl(180,100%,50%,0.15) 1px, transparent 1px), linear-gradient(90deg, hsl(180,100%,50%,0.15) 1px, transparent 1px)",
+                    backgroundSize: "24px 24px",
+                  }}
+                />
+                {/* Glow orb */}
+                <div className="absolute -top-8 -right-8 w-32 h-32 bg-[hsl(180,100%,40%,0.12)] rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-[hsl(270,60%,55%,0.10)] rounded-full blur-2xl pointer-events-none" />
+
                 {project.image ? (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
+                  <>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                      style={{
+                        imageRendering: "crisp-edges",
+                        filter: "contrast(1.05) saturate(1.1) brightness(1.02)",
+                      }}
+                    />
+                    {/* Subtle gradient overlay at bottom for text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[hsl(222,47%,9%,0.5)] via-transparent to-transparent" />
+                    {/* Hover reveal overlay */}
+                    <div className="absolute inset-0 bg-[hsl(180,100%,40%,0.06)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </>
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <Workflow className="w-10 h-10 text-white/10" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Workflow className="w-12 h-12 text-white/10" />
                   </div>
                 )}
                 {/* Category badge */}
-                <span className="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-md text-[10px] font-bold bg-black/60 text-white backdrop-blur-sm border border-white/10 uppercase tracking-wide">
+                <span className="absolute top-3 right-3 px-3 py-1 rounded-full text-[10px] font-bold bg-black/50 text-white backdrop-blur-md border border-white/15 uppercase tracking-wider">
                   {project.category}
                 </span>
               </div>
