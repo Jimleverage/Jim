@@ -74,11 +74,20 @@ const ProjectModal = ({ project, onClose }: Props) => {
 
             {/* Workflow image */}
             {project.image ? (
-              <div className="rounded-xl overflow-hidden bg-[#0d0d18] border border-white/8 mb-6 p-2">
+              <div className="rounded-xl overflow-hidden border border-white/8 mb-6 relative"
+                style={{ background: "linear-gradient(135deg, hsl(222,47%,7%) 0%, hsl(240,40%,12%) 50%, hsl(270,30%,10%) 100%)" }}
+              >
+                <div className="absolute inset-0 opacity-10"
+                  style={{
+                    backgroundImage: "linear-gradient(hsl(180,100%,50%,0.2) 1px, transparent 1px), linear-gradient(90deg, hsl(180,100%,50%,0.2) 1px, transparent 1px)",
+                    backgroundSize: "24px 24px",
+                  }}
+                />
                 <img
-                  src={project.image}
+                  src={`${import.meta.env.BASE_URL}${project.image.replace(/^\//, "")}`}
                   alt={project.title}
-                  className="w-full rounded-lg object-cover"
+                  className="w-full rounded-lg object-cover relative z-10"
+                  style={{ filter: "contrast(1.05) saturate(1.1) brightness(1.02)" }}
                 />
               </div>
             ) : (
