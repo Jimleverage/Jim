@@ -479,10 +479,10 @@ const PortfolioSection = () => {
           <p className="text-sm font-medium accent-text uppercase tracking-widest mb-3">
             My Work
           </p>
-          <h2 className="text-4xl sm:text-5xl font-display font-bold mb-4">
+          <h2 className="text-5xl sm:text-6xl font-display font-bold mb-4">
             Automation <span className="gradient-text">Portfolio</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Real automations built for real businesses. Click any project to see the full case study.
           </p>
         </motion.div>
@@ -556,10 +556,10 @@ const PortfolioSection = () => {
 
               {/* Content */}
               <div className="p-5">
-                <h3 className="font-display font-bold text-base text-foreground mb-2 leading-snug group-hover:text-white transition-colors">
+                <h3 className="font-display font-bold text-lg text-foreground mb-2 leading-snug group-hover:text-white transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-3 leading-relaxed">
+                <p className="text-base text-muted-foreground mb-4 line-clamp-3 leading-relaxed">
                   {project.description}
                 </p>
 

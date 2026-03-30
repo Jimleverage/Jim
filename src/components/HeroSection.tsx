@@ -94,7 +94,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-base text-muted-foreground mb-8 max-w-lg leading-relaxed"
+              className="text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed"
             >
               I help businesses automate their workflows and reclaim their time using{" "}
               <span className="accent-text font-medium">GoHighLevel</span>,{" "}
@@ -161,10 +161,10 @@ const HeroSection = () => {
                   transition={{ duration: 0.4, delay: 0.7 + i * 0.08 }}
                   className="text-center glass-card py-3 px-2 rounded-xl border border-white/8 hover:border-[hsl(180,100%,40%,0.3)] transition-colors"
                 >
-                  <div className="text-lg sm:text-xl font-display font-bold gradient-text leading-tight">
+                  <div className="text-2xl sm:text-3xl font-display font-bold gradient-text leading-tight">
                     {s.value}
                   </div>
-                  <div className="text-[10px] text-muted-foreground leading-tight mt-0.5">
+                  <div className="text-xs text-muted-foreground leading-tight mt-0.5">
                     {s.label}
                   </div>
                 </motion.div>

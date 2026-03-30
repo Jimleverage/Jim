@@ -103,11 +103,11 @@ const VoiceDemoSection = () => {
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-[hsl(270,60%,55%,0.15)] text-[hsl(270,80%,75%)] border border-[hsl(270,60%,55%,0.3)] mb-4">
             Featured Demo
           </span>
-          <h2 className="text-4xl sm:text-5xl font-display font-bold mb-3">
+          <h2 className="text-5xl sm:text-6xl font-display font-bold mb-3">
             <span className="mr-3">🎙️</span>
             Live <span className="gradient-text">Voice AI</span> Demo
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-lg text-muted-foreground">
             Click the microphone to start a real-time voice conversation with my AI agent
           </p>
         </motion.div>
@@ -243,8 +243,8 @@ const VoiceDemoSection = () => {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[hsl(180,100%,40%,0.15)] to-[hsl(270,60%,55%,0.15)] border border-[hsl(180,100%,40%,0.2)] flex items-center justify-center mx-auto mb-2 group-hover:border-[hsl(180,100%,40%,0.4)] transition-all">
                 <span className="text-[hsl(180,100%,50%)]">{f.icon}</span>
               </div>
-              <p className="text-xs font-semibold text-foreground mb-0.5">{f.title}</p>
-              <p className="text-[10px] text-muted-foreground leading-tight">{f.desc}</p>
+              <p className="text-sm font-semibold text-foreground mb-0.5">{f.title}</p>
+              <p className="text-xs text-muted-foreground leading-tight">{f.desc}</p>
             </div>
           ))}
         </motion.div>

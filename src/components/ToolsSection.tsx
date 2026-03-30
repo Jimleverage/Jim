@@ -30,14 +30,14 @@ type Tool = { name: string; img?: string | null; bg?: string; text?: string };
 
 const ToolCard = ({ tool }: { tool: Tool }) => (
   <div className="flex flex-col items-center gap-2 mx-3">
-    <div className="w-20 h-20 rounded-2xl bg-[hsl(222,47%,9%)] border border-white/8 flex items-center justify-center hover:border-[hsl(180,100%,40%,0.4)] hover:shadow-[0_0_16px_hsl(180,100%,40%,0.1)] transition-all duration-300">
+    <div className="w-24 h-24 rounded-2xl bg-[hsl(222,47%,9%)] border border-white/8 flex items-center justify-center hover:border-[hsl(180,100%,40%,0.4)] hover:shadow-[0_0_16px_hsl(180,100%,40%,0.1)] transition-all duration-300">
       {tool.img ? (
-        <img src={tool.img} alt={tool.name} className="w-10 h-10 object-contain" />
+        <img src={tool.img} alt={tool.name} className="w-12 h-12 object-contain" />
       ) : (
-        <span className="text-sm font-bold text-[hsl(180,100%,50%)]">{tool.text}</span>
+        <span className="text-base font-bold text-[hsl(180,100%,50%)]">{tool.text}</span>
       )}
     </div>
-    <span className="text-xs text-muted-foreground whitespace-nowrap">{tool.name}</span>
+    <span className="text-sm text-muted-foreground whitespace-nowrap">{tool.name}</span>
   </div>
 );
 
@@ -67,10 +67,10 @@ const ToolsSection = () => {
           <p className="text-sm font-medium accent-text uppercase tracking-widest mb-3">
             Technology
           </p>
-          <h2 className="text-4xl sm:text-5xl font-display font-bold mb-4">
+          <h2 className="text-5xl sm:text-6xl font-display font-bold mb-4">
             Tech <span className="gradient-text">Stack</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             The tools and technologies I use to build powerful automation solutions.
           </p>
         </motion.div>

@@ -59,10 +59,10 @@ const ProcessSection = () => {
           <p className="text-sm font-medium accent-text uppercase tracking-widest mb-3">
             How It Works
           </p>
-          <h2 className="text-4xl sm:text-5xl font-display font-bold mb-4">
+          <h2 className="text-5xl sm:text-6xl font-display font-bold mb-4">
             My <span className="gradient-text">Process</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A clear, repeatable process that takes you from chaos to automated clarity — without the guesswork.
           </p>
         </motion.div>
@@ -83,13 +83,13 @@ const ProcessSection = () => {
                 <div className="absolute top-8 left-1/2 w-full h-px bg-gradient-to-r from-[hsl(180,100%,40%,0.4)] to-transparent z-0" />
               )}
 
-              <div className="relative z-10 glass-card p-5 text-center hover:border-[hsl(180,100%,40%,0.3)] transition-all duration-300 hover:-translate-y-1">
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-[hsl(180,100%,40%,0.2)] to-[hsl(270,60%,55%,0.2)] border border-[hsl(180,100%,40%,0.3)] mb-4 mx-auto">
+              <div className="relative z-10 glass-card p-6 text-center hover:border-[hsl(180,100%,40%,0.3)] transition-all duration-300 hover:-translate-y-1">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(180,100%,40%,0.2)] to-[hsl(270,60%,55%,0.2)] border border-[hsl(180,100%,40%,0.3)] mb-4 mx-auto">
                   <span className="text-[hsl(180,100%,50%)]">{step.icon}</span>
                 </div>
-                <div className="text-xs font-bold text-[hsl(180,100%,50%)] mb-2">{step.number}</div>
-                <h3 className="font-display font-semibold text-sm mb-2">{step.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{step.description}</p>
+                <div className="text-sm font-bold text-[hsl(180,100%,50%)] mb-2">{step.number}</div>
+                <h3 className="font-display font-semibold text-base mb-2">{step.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
               </div>
             </motion.div>
           ))}
@@ -112,9 +112,9 @@ const ProcessSection = () => {
                 </div>
               </div>
               <div>
-                <div className="text-xs font-bold text-[hsl(180,100%,50%)] mb-1">{step.number}</div>
-                <h3 className="font-display font-semibold mb-1">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                <div className="text-sm font-bold text-[hsl(180,100%,50%)] mb-1">{step.number}</div>
+                <h3 className="font-display font-semibold text-base mb-1">{step.title}</h3>
+                <p className="text-base text-muted-foreground leading-relaxed">{step.description}</p>
               </div>
             </motion.div>
           ))}

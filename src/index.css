@@ -101,7 +101,7 @@
   }
 
   .section-padding {
-    @apply py-20 px-4 sm:px-6 lg:px-8;
+    @apply py-28 px-4 sm:px-6 lg:px-8;
   }
 
   .constellation-bg {
