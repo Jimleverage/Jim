@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Layers, Zap, BarChart2, ZoomIn } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export type Project = {
   id: number;
@@ -25,6 +25,7 @@ type Props = {
 
 const ProjectModal = ({ project, onClose }: Props) => {
   const [zoomed, setZoomed] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     if (project) document.body.style.overflow = "hidden";
@@ -86,9 +87,11 @@ const ProjectModal = ({ project, onClose }: Props) => {
               {/* Workflow image */}
               {imgSrc ? (
                 <div
-                  className="rounded-xl overflow-hidden border border-white/8 mb-8 relative group cursor-zoom-in"
+                  className="rounded-xl overflow-hidden border border-white/8 mb-8 relative cursor-zoom-in"
                   style={{ background: "linear-gradient(135deg, hsl(222,47%,7%) 0%, hsl(240,40%,12%) 50%, hsl(270,30%,10%) 100%)" }}
                   onClick={() => setZoomed(true)}
+                  onMouseEnter={() => setHovered(true)}
+                  onMouseLeave={() => setHovered(false)}
                 >
                   <div className="absolute inset-0 opacity-10"
                     style={{
@@ -99,11 +102,14 @@ const ProjectModal = ({ project, onClose }: Props) => {
                   <img
                     src={imgSrc}
                     alt={project.title}
-                    className="w-full rounded-lg object-cover relative z-10 group-hover:brightness-110 transition-all duration-300"
-                    style={{ filter: "contrast(1.05) saturate(1.1) brightness(1.02)" }}
+                    className="w-full rounded-lg object-cover relative z-10 transition-all duration-300"
+                    style={{ filter: `contrast(1.05) saturate(1.1) brightness(${hovered ? 1.1 : 1.02})` }}
                   />
                   {/* Zoom hint overlay */}
-                  <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <div
+                    className="absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-200"
+                    style={{ opacity: hovered ? 1 : 0 }}
+                  >
                     <div className="bg-black/60 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 border border-white/20">
                       <ZoomIn className="w-4 h-4 text-white" />
                       <span className="text-xs text-white font-medium">Click to zoom</span>
