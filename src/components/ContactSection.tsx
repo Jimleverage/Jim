@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calendar, Clock, MapPin, ArrowRight, User } from "lucide-react";
+import { Calendar, Clock, MapPin, User } from "lucide-react";
 
 const ContactSection = () => {
   return (
@@ -72,7 +72,7 @@ const ContactSection = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="https://calendly.com/jimuel"
+                href="https://calendly.com/jimuel-pasion-pararuan/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary flex items-center justify-center gap-2"
@@ -100,36 +100,13 @@ const ContactSection = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="glass-card glow-border rounded-2xl overflow-hidden">
-              {/* Calendly widget */}
-              <div
-                className="calendly-inline-widget"
-                data-url="https://calendly.com/jimuel/30min"
-                style={{ minWidth: "320px", height: "600px" }}
+              <iframe
+                src="https://calendly.com/jimuel-pasion-pararuan/30min"
+                width="100%"
+                height="600"
+                frameBorder="0"
+                title="Book a call"
               />
-              <script
-                type="text/javascript"
-                src="https://assets.calendly.com/assets/external/widget.js"
-                async
-              />
-
-              {/* Fallback if Calendly doesn't load */}
-              <noscript>
-                <div className="p-8 text-center">
-                  <Calendar className="w-12 h-12 text-[hsl(180,100%,50%)] mx-auto mb-4" />
-                  <p className="text-muted-foreground mb-4">
-                    Schedule a free 30-minute strategy call
-                  </p>
-                  <a
-                    href="https://calendly.com/jimuel/30min"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary inline-flex items-center gap-2"
-                  >
-                    Open Calendly
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                </div>
-              </noscript>
             </div>
           </motion.div>
         </div>
