@@ -1,6 +1,23 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Code2 } from "lucide-react";
+import { Menu, X, Code2, Linkedin } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/jim-undefined-008068372/",
+    icon: <Linkedin className="w-4 h-4" />,
+  },
+  {
+    label: "Upwork",
+    href: "https://www.upwork.com/freelancers/~01288e6acc3423e6dd",
+    icon: (
+      <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
+        <path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H8.848v7.19c-.002 1.49-1.213 2.7-2.703 2.7-1.492 0-2.703-1.21-2.703-2.7V3.492H1.747v7.19c0 2.734 2.221 4.958 4.958 4.958 2.736 0 4.957-2.224 4.957-4.958v-1.2c.529 1.107 1.182 2.229 1.967 3.031l-1.673 7.873h2.215l1.176-5.54c1.083.818 2.318 1.279 3.655 1.279 2.733 0 4.956-2.220 4.956-4.956-.001-2.734-2.224-4.957-4.957-4.957z" />
+      </svg>
+    ),
+  },
+];
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -94,6 +111,18 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-2">
+            {socialLinks.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="p-2 text-muted-foreground hover:text-[hsl(180,100%,50%)] transition-colors"
+              >
+                {s.icon}
+              </a>
+            ))}
             <ThemeToggle />
             <button
               onClick={() => handleNavClick("#contact")}
@@ -143,6 +172,20 @@ const Navbar = () => {
             >
               Let's Talk
             </button>
+            <div className="flex gap-3 pt-2">
+              {socialLinks.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-[hsl(180,100%,50%)] transition-colors"
+                >
+                  {s.icon}
+                  {s.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       )}

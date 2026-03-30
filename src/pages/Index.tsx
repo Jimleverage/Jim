@@ -17,6 +17,24 @@ const Index = () => {
       <ToolsSection />
       <ContactSection />
       <footer className="py-8 text-center text-muted-foreground text-sm border-t border-border">
+        <div className="flex justify-center gap-6 mb-4">
+          <a
+            href="https://www.linkedin.com/in/jim-undefined-008068372/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[hsl(180,100%,50%)] transition-colors"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="https://www.upwork.com/freelancers/~01288e6acc3423e6dd"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[hsl(180,100%,50%)] transition-colors"
+          >
+            Upwork
+          </a>
+        </div>
         © 2026 Jimuel Pararuan. All rights reserved.
       </footer>
     </div>
