@@ -287,11 +287,11 @@ const ProjectModal = ({ project, onClose }: Props) => {
                 cursor: scale > 1 ? "grabbing" : "default",
               }}
               draggable={false}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => { e.stopPropagation(); setScale((s) => s >= 4 ? 1 : s + 0.75); if (scale >= 4) resetZoom(); }}
             />
 
             <p className="absolute bottom-4 text-xs text-white/40">
-              Scroll to zoom · Drag to pan · Press reset to fit
+              Click image to zoom in · Scroll or use buttons · Drag to pan
             </p>
           </motion.div>
         )}
