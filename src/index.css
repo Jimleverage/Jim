@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 180 100% 40%;
+    --primary-foreground: 222 47% 6%;
+    --secondary: 270 60% 55%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 217 32% 16%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 270 60% 55%;
+    --accent-foreground: 210 40% 96%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 32% 18%;
+    --input: 217 32% 18%;
+    --ring: 180 100% 40%;
+    --radius: 0.75rem;
+  }
+
+  /* ── Soft slate-blue light mode — much easier on the eyes ── */
+  .light {
+    --background: 220 22% 91%;
+    --foreground: 222 40% 12%;
+    --card: 220 22% 97%;
+    --card-foreground: 222 40% 12%;
+    --popover: 220 22% 97%;
+    --popover-foreground: 222 40% 12%;
+    --primary: 180 75% 30%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 270 55% 48%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 18% 84%;
+    --muted-foreground: 220 14% 40%;
+    --accent: 270 55% 48%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 18% 78%;
+    --input: 220 18% 78%;
+    --ring: 180 75% 30%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-[hsl(180,100%,50%)] to-[hsl(270,80%,65%)] bg-clip-text text-transparent;
+  }
+
+  .accent-text {
+    @apply text-[hsl(180,100%,50%)];
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl;
+  }
+
+  .light .glass-card {
+    @apply bg-white/60 backdrop-blur-sm border-[hsl(220,18%,74%)] shadow-sm;
+  }
+
+  .glow-border {
+    @apply border border-[hsl(180,100%,40%)/30] shadow-[0_0_20px_hsl(180,100%,40%,0.15)];
+  }
+
+  .light .glow-border {
+    border-color: hsl(180, 75%, 30%, 0.4);
+    box-shadow: 0 0 16px hsl(180, 75%, 30%, 0.14);
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-[hsl(180,100%,40%)] to-[hsl(200,100%,45%)] text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-all duration-200 hover:shadow-[0_0_20px_hsl(180,100%,40%,0.4)];
+  }
+
+  .btn-outline {
+    @apply border border-[hsl(180,100%,40%)] text-[hsl(180,100%,50%)] font-semibold px-6 py-3 rounded-lg hover:bg-[hsl(180,100%,40%)/10] transition-all duration-200;
+  }
+
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+
+  .constellation-bg {
+    background-image:
+      radial-gradient(circle at 20% 20%, hsl(180, 100%, 40%, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, hsl(270, 60%, 55%, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, hsl(180, 100%, 40%, 0.03) 0%, transparent 70%);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Light-mode component overrides
+   (hardcoded dark colours that don't use CSS vars)
+───────────────────────────────────────────── */
+
+/* gradient-text in light mode — darker so it's readable on light bg */
+.light .gradient-text,
+.light [class*="gradient-text"] {
+  background-image: linear-gradient(to right, hsl(180, 75%, 28%), hsl(270, 55%, 44%)) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+/* accent-text */
+.light .accent-text,
+.light [class*="accent-text"] {
+  color: hsl(180, 75%, 28%) !important;
+}
+
+/* teal accent inline colour */
+.light [class*="text-[hsl(180,100%,50%)]"] {
+  color: hsl(180, 75%, 28%) !important;
+}
+.light [class*="text-[hsl(180,100%,55%)]"] {
+  color: hsl(180, 75%, 28%) !important;
+}
+
+/* Portfolio & modal hardcoded dark backgrounds */
+.light [class*="bg-[hsl(222,47%,9%)]"],
+.light [class*="bg-[hsl(222,47%,8%)]"] {
+  background-color: hsl(220, 22%, 97%) !important;
+  border-color: hsl(220, 18%, 80%) !important;
+}
+
+/* Image placeholder areas inside cards */
+.light [class*="bg-[#0d0d18]"] {
+  background-color: hsl(220, 18%, 89%) !important;
+}
+
+/* Black overlay category badge */
+.light [class*="bg-black/60"] {
+  background-color: rgba(240, 242, 248, 0.92) !important;
+  color: hsl(222, 40%, 14%) !important;
+  border-color: hsl(220, 18%, 72%) !important;
+}
+
+/* Semi-transparent white/dark panels (tags, tool badges) */
+.light [class*="bg-white/5"] {
+  background-color: hsl(220, 18%, 91%) !important;
+}
+.light [class*="bg-white/4"] {
+  background-color: hsl(220, 18%, 91%) !important;
+}
+.light [class*="border-white/10"] {
+  border-color: hsl(220, 18%, 76%) !important;
+}
+.light [class*="border-white/8"] {
+  border-color: hsl(220, 18%, 78%) !important;
+}
+.light [class*="border-white/6"] {
+  border-color: hsl(220, 18%, 82%) !important;
+}
+
+/* Modal backdrop */
+.light [class*="bg-black/80"] {
+  background-color: rgba(20, 25, 50, 0.65) !important;
+}
+
+/* Subtle section background grid (hero) */
+.light [style*="linear-gradient(hsl(180"] {
+  opacity: 0.012 !important;
+}
+
+/* Glow orbs — reduce intensity */
+.light [class*="bg-[hsl(180,100%,40%,0.06)"] {
+  background-color: hsl(180, 60%, 40%, 0.05) !important;
+}
+.light [class*="bg-[hsl(270,60%,55%,0.06)"] {
+  background-color: hsl(270, 40%, 55%, 0.05) !important;
+}
+.light [class*="bg-[hsl(180,100%,40%,0.18)"] {
+  background-color: hsl(180, 60%, 40%, 0.1) !important;
+}
+.light [class*="bg-[hsl(270,60%,55%,0.12)"] {
+  background-color: hsl(270, 40%, 55%, 0.08) !important;
+}
+
+/* Hero floating card purple glow */
+.light [class*="border-[hsl(270,60%,55%,0.3)]"] {
+  border-color: hsl(270, 40%, 50%, 0.35) !important;
+}
+.light [class*="shadow-[0_0_20px_hsl(270,60%,55%,0.12)]"] {
+  box-shadow: 0 2px 12px hsl(270, 40%, 50%, 0.15) !important;
+}
+
+/* Impact box teal headline */
+.light [class*="text-[hsl(180,100%,55%)]"] {
+  color: hsl(180, 75%, 28%) !important;
+}
+
+/* Purple left-border on results */
+.light [class*="border-[hsl(270,60%,55%)]"] {
+  border-color: hsl(270, 55%, 46%) !important;
+}
+
+/* Filter button active (purple) */
+.light [class*="bg-[hsl(270,60%,55%)]"] {
+  background-color: hsl(270, 55%, 46%) !important;
+}
+
+/* Icon glow gradient panels */
+.light [class*="from-[hsl(180,100%,40%,0.2)]"] {
+  --tw-gradient-from: hsl(180, 70%, 35%, 0.15) !important;
+}
+.light [class*="to-[hsl(270,60%,55%,0.2)]"] {
+  --tw-gradient-to: hsl(270, 50%, 50%, 0.15) !important;
+}
+.light [class*="border-[hsl(180,100%,40%,0.3)]"] {
+  border-color: hsl(180, 70%, 30%, 0.3) !important;
+}
+
+/* Process connector line */
+.light [class*="from-[hsl(180,100%,40%,0.4)]"] {
+  --tw-gradient-from: hsl(180, 70%, 30%, 0.25) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(222, 47%, 8%);
+}
+
+.light ::-webkit-scrollbar-track {
+  background: hsl(220, 22%, 85%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(180, 100%, 40%, 0.4);
+  border-radius: 3px;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: hsl(180, 75%, 30%, 0.45);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(180, 100%, 40%, 0.7);
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background: hsl(180, 75%, 30%, 0.75);
+}
