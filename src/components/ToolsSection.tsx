@@ -1,40 +1,63 @@
 import { motion } from "framer-motion";
 
-const toolCategories = [
-  {
-    title: "CRM Platforms",
-    tools: ["Brivity CRM", "GoHighLevel", "HubSpot", "Azul.io", "Compass", "Sierra Interactive"],
-  },
-  {
-    title: "Automation & Integration",
-    tools: ["Zapier", "n8n", "Make (Integromat)"],
-  },
-  {
-    title: "Marketing & Content",
-    tools: ["Meta Business Suite", "Canva", "Adobe Creative Cloud", "Mailchimp", "SendGrid", "CapCut"],
-  },
-  {
-    title: "Productivity & Collaboration",
-    tools: ["Google Workspace", "Microsoft Office", "Asana", "Slack", "Notion"],
-  },
-  {
-    title: "Additional Platforms",
-    tools: ["WordPress", "Elementor", "Google Analytics", "Google Sheets", "Calendly"],
-  },
+const row1 = [
+  { name: "GoHighLevel", img: null, bg: "#1a1a2e", text: "GHL" },
+  { name: "Zapier", img: "https://cdn.simpleicons.org/zapier/FF4A00" },
+  { name: "n8n", img: "https://cdn.simpleicons.org/n8n/EA4B71" },
+  { name: "Make", img: "https://cdn.simpleicons.org/make/6D00CC" },
+  { name: "HubSpot", img: "https://cdn.simpleicons.org/hubspot/FF7A59" },
+  { name: "Slack", img: "https://cdn.simpleicons.org/slack/4A154B" },
+  { name: "Notion", img: "https://cdn.simpleicons.org/notion/ffffff" },
+  { name: "Airtable", img: "https://cdn.simpleicons.org/airtable/18BFFF" },
+  { name: "Mailchimp", img: "https://cdn.simpleicons.org/mailchimp/FFE01B" },
+  { name: "Google", img: "https://cdn.simpleicons.org/google/4285F4" },
 ];
 
-const tickerTools = [
-  "GoHighLevel", "Zapier", "n8n", "Make", "Brivity CRM", "HubSpot",
-  "Mailchimp", "Slack", "Notion", "Asana", "Google Workspace", "Meta Business Suite",
-  "Canva", "Adobe CC", "WordPress", "Calendly", "Stripe", "SendGrid",
-  "Google Analytics", "Typeform", "Airtable", "CapCut",
+const row2 = [
+  { name: "Canva", img: "https://cdn.simpleicons.org/canva/00C4CC" },
+  { name: "WordPress", img: "https://cdn.simpleicons.org/wordpress/21759B" },
+  { name: "Asana", img: "https://cdn.simpleicons.org/asana/F06A6A" },
+  { name: "Salesforce", img: "https://cdn.simpleicons.org/salesforce/00A1E0" },
+  { name: "Gemini", img: "https://cdn.simpleicons.org/googlegemini/8E75B2" },
+  { name: "Claude", img: "https://cdn.simpleicons.org/anthropic/D4A574" },
+  { name: "JavaScript", img: "https://cdn.simpleicons.org/javascript/F7DF1E" },
+  { name: "VAPI", img: null, bg: "#1a1a2e", text: "VAPI" },
+  { name: "Calendly", img: "https://cdn.simpleicons.org/calendly/006BFF" },
+  { name: "CapCut", img: "https://cdn.simpleicons.org/capcut/ffffff" },
 ];
+
+type Tool = { name: string; img?: string | null; bg?: string; text?: string };
+
+const ToolCard = ({ tool }: { tool: Tool }) => (
+  <div className="flex flex-col items-center gap-2 mx-3">
+    <div className="w-20 h-20 rounded-2xl bg-[hsl(222,47%,9%)] border border-white/8 flex items-center justify-center hover:border-[hsl(180,100%,40%,0.4)] hover:shadow-[0_0_16px_hsl(180,100%,40%,0.1)] transition-all duration-300">
+      {tool.img ? (
+        <img src={tool.img} alt={tool.name} className="w-10 h-10 object-contain" />
+      ) : (
+        <span className="text-sm font-bold text-[hsl(180,100%,50%)]">{tool.text}</span>
+      )}
+    </div>
+    <span className="text-xs text-muted-foreground whitespace-nowrap">{tool.name}</span>
+  </div>
+);
+
+const MarqueeRow = ({ tools, reverse = false }: { tools: Tool[]; reverse?: boolean }) => {
+  const doubled = [...tools, ...tools];
+  return (
+    <div className="relative overflow-hidden py-2">
+      <div className={`flex w-max ${reverse ? "animate-scroll-x-reverse" : "animate-scroll-x"}`}>
+        {doubled.map((tool, i) => (
+          <ToolCard key={i} tool={tool} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const ToolsSection = () => {
   return (
     <section id="tools" className="section-padding relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -42,57 +65,25 @@ const ToolsSection = () => {
           className="text-center mb-16"
         >
           <p className="text-sm font-medium accent-text uppercase tracking-widest mb-3">
-            My Stack
+            Technology
           </p>
           <h2 className="text-4xl sm:text-5xl font-display font-bold mb-4">
-            Tools & <span className="gradient-text">Technologies</span>
+            Tech <span className="gradient-text">Stack</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            The platforms I use daily to build powerful automations and manage complex workflows.
+            The tools and technologies I use to build powerful automation solutions.
           </p>
         </motion.div>
-
-        {/* Tool category grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
-          {toolCategories.map((cat, i) => (
-            <motion.div
-              key={cat.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="glass-card p-5 hover:border-[hsl(180,100%,40%,0.3)] transition-all duration-300"
-            >
-              <h3 className="font-display font-semibold text-sm mb-4 gradient-text">
-                {cat.title}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {cat.tools.map((tool) => (
-                  <span
-                    key={tool}
-                    className="px-3 py-1.5 rounded-lg text-sm glass-card text-muted-foreground hover:text-foreground hover:border-[hsl(180,100%,40%,0.3)] transition-colors cursor-default"
-                  >
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
 
-      {/* Scrolling ticker */}
-      <div className="relative overflow-hidden py-6 border-y border-border">
-        <div className="flex animate-scroll-x gap-8 w-max">
-          {[...tickerTools, ...tickerTools].map((tool, i) => (
-            <span
-              key={i}
-              className="whitespace-nowrap text-sm font-medium text-muted-foreground hover:accent-text transition-colors px-2"
-            >
-              <span className="text-[hsl(180,100%,50%)] mr-2">✦</span>
-              {tool}
-            </span>
-          ))}
+      {/* Fade edges */}
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+        <div className="space-y-6">
+          <MarqueeRow tools={row1} />
+          <MarqueeRow tools={row2} reverse />
         </div>
       </div>
     </section>
