@@ -54,15 +54,6 @@ const HeroSection = () => {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[hsl(180,100%,40%,0.06)] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[hsl(270,60%,55%,0.06)] rounded-full blur-3xl pointer-events-none" />
 
-      {/* Animated grid background */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "linear-gradient(hsl(180,100%,50%) 1px, transparent 1px), linear-gradient(90deg, hsl(180,100%,50%) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
 
       <div className="max-w-7xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
