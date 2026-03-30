@@ -28,9 +28,6 @@ const ContactSection = () => {
             Let's Get Back{" "}
             <span className="gradient-text">Your Time!</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to Automate Your Business?
-          </p>
         </motion.div>
 
         <motion.div
