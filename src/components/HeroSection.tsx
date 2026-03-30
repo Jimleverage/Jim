@@ -204,7 +204,7 @@ const HeroSection = () => {
                 }}
               >
                 <img
-                  src="/profile.jpg"
+                  src={`${import.meta.env.BASE_URL}profile.jpg`}
                   alt="Jimuel Pararuan"
                   className="w-full h-auto object-cover object-top"
                   style={{ mixBlendMode: "multiply", filter: "contrast(1.08) brightness(1.05)" }}
