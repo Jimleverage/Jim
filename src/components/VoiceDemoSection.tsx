@@ -201,7 +201,7 @@ const VoiceDemoSection = () => {
                 disabled={status === "connecting" || status === "ending"}
                 whileTap={{ scale: 0.94 }}
                 whileHover={{ scale: status === "idle" ? 1.06 : 1 }}
-                className={`relative w-28 h-28 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg ${
+                className={`relative w-44 h-44 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg ${
                   status === "active"
                     ? "bg-red-500 hover:bg-red-600 shadow-[0_0_32px_rgba(239,68,68,0.4)]"
                     : status === "connecting" || status === "ending"
@@ -210,11 +210,11 @@ const VoiceDemoSection = () => {
                 }`}
               >
                 {status === "connecting" || status === "ending" ? (
-                  <Loader2 className="w-10 h-10 text-white animate-spin" />
+                  <Loader2 className="w-16 h-16 text-white animate-spin" />
                 ) : status === "active" ? (
-                  <MicOff className="w-10 h-10 text-white" />
+                  <MicOff className="w-16 h-16 text-white" />
                 ) : (
-                  <Mic className="w-10 h-10 text-[hsl(222,47%,14%)]" />
+                  <Mic className="w-16 h-16 text-[hsl(222,47%,14%)]" />
                 )}
               </motion.button>
             </div>
