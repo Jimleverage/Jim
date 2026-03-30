@@ -455,17 +455,16 @@ const projects: Project[] = [
   },
 ];
 
-const categories = ["All", "n8n", "Zapier", "GoHighLevel", "Make"];
+const categories = ["n8n", "Zapier", "GoHighLevel", "Make"];
 
 const PortfolioSection = () => {
   const [active, setActive] = useState("n8n");
   const [selected, setSelected] = useState<Project | null>(null);
 
-  const filtered =
-    active === "All" ? projects : projects.filter((p) => p.category === active);
+  const filtered = projects.filter((p) => p.category === active);
 
   const countFor = (cat: string) =>
-    cat === "All" ? projects.length : projects.filter((p) => p.category === cat).length;
+    projects.filter((p) => p.category === cat).length;
 
   return (
     <section id="portfolio" className="section-padding">
