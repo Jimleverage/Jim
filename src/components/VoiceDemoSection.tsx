@@ -121,11 +121,11 @@ const VoiceDemoSection = () => {
           className="glass-card p-8 glow-border mb-6"
         >
           {/* Status bar */}
-          <div className="flex items-center gap-3 bg-white/4 border border-white/8 rounded-xl px-4 py-3 mb-8 max-w-xs mx-auto">
-            <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${statusColor[status]}`} />
+          <div className="flex items-center gap-4 bg-white/4 border border-white/10 rounded-2xl px-6 py-4 mb-8 max-w-sm mx-auto">
+            <span className={`w-3.5 h-3.5 rounded-full flex-shrink-0 ${statusColor[status]}`} />
             <div>
-              <p className="text-xs font-semibold text-foreground">Voice AI Assistant</p>
-              <p className="text-xs text-muted-foreground">{statusLabel[status]}</p>
+              <p className="text-base font-bold text-foreground">Voice AI Assistant</p>
+              <p className="text-sm text-muted-foreground">{statusLabel[status]}</p>
             </div>
           </div>
 
@@ -138,7 +138,7 @@ const VoiceDemoSection = () => {
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
-                  className="text-sm font-semibold text-[hsl(180,100%,50%)] flex items-center gap-1.5"
+                  className="text-xl font-bold text-[hsl(180,100%,50%)] flex items-center gap-2"
                 >
                   ↓ Click to start talking
                 </motion.p>
