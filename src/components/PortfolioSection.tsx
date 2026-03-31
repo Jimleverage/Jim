@@ -538,8 +538,8 @@ const PortfolioSection = () => {
                       alt={project.title}
                       className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                       style={{
-                        imageRendering: "crisp-edges",
-                        filter: "url(#img-sharpen) contrast(1.18) saturate(1.15) brightness(1.02)",
+                        imageRendering: "-webkit-optimize-contrast" as any,
+                        filter: "url(#img-sharpen) contrast(1.3) saturate(1.2) brightness(1.03)",
                       }}
                     />
                     {/* Subtle gradient overlay at bottom for text readability */}

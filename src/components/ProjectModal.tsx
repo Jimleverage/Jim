@@ -141,7 +141,7 @@ const ImageViewer = ({ src, alt }: { src: string; alt: string }) => {
             alt={alt}
             draggable={false}
             className="w-full block select-none"
-            style={{ filter: "url(#img-sharpen) contrast(1.18) saturate(1.15) brightness(1.02)" }}
+            style={{ imageRendering: "-webkit-optimize-contrast" as any, filter: "url(#img-sharpen) contrast(1.3) saturate(1.2) brightness(1.03)" }}
           />
         </div>
       </div>
