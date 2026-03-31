@@ -391,27 +391,6 @@ const projects: Project[] = [
     metricLabel: "Time saved per file",
   },
   {
-    id: 18,
-    title: "Enterprise E-Commerce & Accounting Synchronization",
-    category: "Make",
-    subTags: ["FinOps"],
-    tags: ["MAKE", "QUICKBOOKS ONLINE", "SELLERCLOUD API", "JSON", "DATASTORE"],
-    description:
-      "This project involves a highly complex Make.com scenario designed to automate financial reporting for a high-volume wholesale distributor. It eliminates manual data entry by systematically synchronizing orders, customers, and inventory items between SellerCloud and QuickBooks Online.",
-    impactHeadline: "Full-Cycle Automation: E-Commerce Order Management to Accounting Platform.",
-    impact:
-      "The client processed thousands of orders manually, leading to ledger errors and duplicate profiles. This automation 'watches' for shipped orders, applying smart logic to find or create customers and items, updating prices dynamically, and ensuring 100% reconciliation without human intervention.",
-    results: [
-      { label: "Financial Accuracy", value: "100%" },
-      { label: "Manual Entry", value: "Eliminated" },
-      { label: "Scale", value: "Thousands/mo" },
-    ],
-    tools: ["Make", "QuickBooks Online", "SellerCloud API", "JSON", "DataStore"],
-    image: "/workflows/make-ecommerce-sync.png",
-    metric: "100%",
-    metricLabel: "Financial accuracy",
-  },
-  {
     id: 19,
     title: "Automated Real Estate Deal Analysis (TrueARV)",
     category: "Make",
