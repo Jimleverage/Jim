@@ -10,6 +10,14 @@ import CursorGlow from "@/components/CursorGlow";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background constellation-bg">
+      {/* SVG filter for image sharpening */}
+      <svg style={{ position: "absolute", width: 0, height: 0 }} aria-hidden="true">
+        <defs>
+          <filter id="img-sharpen">
+            <feConvolveMatrix order="3" kernelMatrix="0 -1 0 -1 5 -1 0 -1 0" preserveAlpha="true" />
+          </filter>
+        </defs>
+      </svg>
       <CursorGlow />
       <Navbar />
       <HeroSection />
