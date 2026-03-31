@@ -325,27 +325,6 @@ const projects: Project[] = [
     metric: "24/7/365",
     metricLabel: "Call coverage",
   },
-  {
-    id: 14,
-    title: "Instagram Lead Gen & Segmentation Engine",
-    category: "GoHighLevel",
-    subTags: ["Social Commerce"],
-    tags: ["MANYCHAT", "INSTAGRAM API", "GOHIGHLEVEL", "AUTOMATION"],
-    description:
-      "Built a ManyChat + GoHighLevel integration that captures Instagram comment and DM triggers, instantly delivers lead magnets via direct message, collects email opt-ins through a compliant flow, and pushes segmented contacts directly into GoHighLevel for automated nurturing sequences.",
-    impactHeadline: "Converted Viral Engagement into Owned CRM Data (Email Leads).",
-    impact:
-      "The client had high Instagram engagement but no way to convert followers into owned contacts. This system turns every comment or DM keyword trigger into a structured lead capture event — building an email list from organic traffic while keeping the process fully compliant and spam-free.",
-    results: [
-      { label: "Response Time", value: "Instant" },
-      { label: "Spam Flagging Risk", value: "0%" },
-      { label: "Lead Capture", value: "24/7 Auto" },
-    ],
-    tools: ["ManyChat", "Instagram API", "GoHighLevel", "Automation"],
-    image: "/workflows/ghl-instagram-lead.png",
-    metric: "INSTANT",
-    metricLabel: "Response time",
-  },
 
   // ── Make ─────────────────────────────────────────────────────────────────
   {
