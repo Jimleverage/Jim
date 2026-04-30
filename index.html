@@ -34,14 +34,14 @@
         --chat--color-font: #1e1b4b;
       }
 
-      /* Quick reply suggestion buttons — sit inside the chat window above the input */
+      /* Quick reply buttons — hidden by default, shown only when chat is open */
       #maya-suggestions {
+        display: none;
         position: fixed;
         bottom: 76px;
         right: 20px;
         width: 370px;
         max-width: calc(100vw - 40px);
-        display: flex;
         flex-direction: column;
         gap: 7px;
         z-index: 10000;
@@ -50,7 +50,9 @@
         border-top: 1px solid #e9d5ff;
         box-sizing: border-box;
       }
-      #maya-suggestions.hidden { display: none; }
+      #maya-suggestions.visible {
+        display: flex;
+      }
       .maya-suggestion-btn {
         background: #ffffff;
         border: 1.5px solid #6D28D9;
@@ -83,7 +85,7 @@
     </svg>
     <div id="root"></div>
 
-    <!-- Maya quick reply suggestions (sit just above the chat input bar) -->
+    <!-- Maya quick reply suggestions (only visible when chat is open) -->
     <div id="maya-suggestions">
       <button class="maya-suggestion-btn" onclick="sendToMaya('Tell me about the Reset Challenge')">Tell me about the Reset Challenge</button>
       <button class="maya-suggestion-btn" onclick="sendToMaya('I did not get my enrollment emails')">I did not get my enrollment emails</button>
@@ -112,36 +114,56 @@
     </script>
 
     <script>
-      function sendToMaya(text) {
-        // Hide suggestions immediately
+      var suggestionsDismissed = false;
+
+      // Poll every 400ms — show suggestions only when chat input is visible
+      setInterval(function () {
         var suggestions = document.getElementById('maya-suggestions');
-        if (suggestions) suggestions.classList.add('hidden');
+        if (!suggestions || suggestionsDismissed) return;
+
+        var chatInput =
+          document.querySelector('textarea[placeholder="Type your message..."]') ||
+          document.querySelector('input[placeholder="Type your message..."]');
+
+        // Chat is open if the input exists and is visible on screen
+        var chatOpen = chatInput && chatInput.offsetHeight > 0 && chatInput.offsetWidth > 0;
+
+        if (chatOpen) {
+          suggestions.classList.add('visible');
+        } else {
+          suggestions.classList.remove('visible');
+        }
+      }, 400);
+
+      function sendToMaya(text) {
+        // Permanently hide suggestions after first use
+        suggestionsDismissed = true;
+        var suggestions = document.getElementById('maya-suggestions');
+        if (suggestions) {
+          suggestions.classList.remove('visible');
+          suggestions.style.display = 'none';
+        }
 
         var attempts = 0;
         var interval = setInterval(function () {
           attempts++;
           if (attempts > 40) { clearInterval(interval); return; }
 
-          // Cast a wide net for the textarea/input inside the n8n chat widget
           var input =
             document.querySelector('textarea[placeholder="Type your message..."]') ||
             document.querySelector('input[placeholder="Type your message..."]') ||
             document.querySelector('.chat-input') ||
             document.querySelector('[class*="chat"] textarea') ||
-            document.querySelector('[class*="input"] textarea') ||
             document.querySelector('textarea');
 
-          if (!input) return; // keep retrying
+          if (!input) return;
           clearInterval(interval);
 
-          // 1. Focus the element so execCommand targets it
           input.focus();
-
-          // 2. Select any existing text then insert ours
           if (input.select) input.select();
+
           var ok = document.execCommand('insertText', false, text);
 
-          // 3. Fallback: native Vue/React-compatible setter
           if (!ok || input.value !== text) {
             var proto = Object.getPrototypeOf(input);
             var descriptor = Object.getOwnPropertyDescriptor(proto, 'value');
@@ -154,20 +176,16 @@
             input.dispatchEvent(new Event('change', { bubbles: true }));
           }
 
-          // 4. Submit after a short delay
           setTimeout(function () {
-            // Look for a submit button near the input
             var form = input.closest('form');
             var btn = form
               ? (form.querySelector('button[type="submit"]') || form.querySelector('button'))
               : (document.querySelector('button[type="submit"]') ||
-                 document.querySelector('[class*="send"]') ||
-                 document.querySelector('[class*="submit"]'));
+                 document.querySelector('[class*="send"]'));
 
             if (btn && !btn.disabled) {
               btn.click();
             } else {
-              // Enter key fallback
               ['keydown', 'keypress', 'keyup'].forEach(function (evtType) {
                 input.dispatchEvent(new KeyboardEvent(evtType, {
                   key: 'Enter', code: 'Enter', keyCode: 13,
