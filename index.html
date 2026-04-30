@@ -15,6 +15,62 @@
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     <script type="module" crossorigin src="/Jim/assets/index-DBV7k-rf.js"></script>
     <link rel="stylesheet" crossorigin href="/Jim/assets/index-CKCoJCes.css">
+    <style>
+      /* Maya chat brand colors */
+      :root {
+        --chat--color-primary: #6D28D9;
+        --chat--color-primary-shade-50: #5B21B6;
+        --chat--color-primary-shade-100: #4C1D95;
+        --chat--color-secondary: #D97706;
+        --chat--header--background: #3b0764;
+        --chat--header--color: #ffffff;
+        --chat--message--bot--background: #f5f3ff;
+        --chat--message--bot--color: #1e1b4b;
+        --chat--message--user--background: #6D28D9;
+        --chat--message--user--color: #ffffff;
+        --chat--toggle--background: #6D28D9;
+        --chat--toggle--hover--background: #5B21B6;
+        --chat--toggle--active--background: #4C1D95;
+        --chat--color-font: #1e1b4b;
+      }
+
+      /* Quick reply suggestion buttons */
+      #maya-suggestions {
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        z-index: 9998;
+        max-width: 270px;
+        animation: fadeIn 0.4s ease;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      .maya-suggestion-btn {
+        background: #ffffff;
+        border: 1.5px solid #6D28D9;
+        color: #6D28D9;
+        padding: 9px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: left;
+        box-shadow: 0 2px 10px rgba(109,40,217,0.15);
+        transition: all 0.2s ease;
+        font-family: inherit;
+        line-height: 1.3;
+      }
+      .maya-suggestion-btn:hover {
+        background: #6D28D9;
+        color: #ffffff;
+        box-shadow: 0 4px 14px rgba(109,40,217,0.3);
+      }
+    </style>
   </head>
   <body>
     <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
@@ -25,19 +81,71 @@
       </defs>
     </svg>
     <div id="root"></div>
+
+    <!-- Maya quick reply suggestions -->
+    <div id="maya-suggestions">
+      <button class="maya-suggestion-btn" onclick="sendToMaya('Tell me about the Reset Challenge')">Tell me about the Reset Challenge</button>
+      <button class="maya-suggestion-btn" onclick="sendToMaya('I did not get my enrollment emails')">I did not get my enrollment emails</button>
+      <button class="maya-suggestion-btn" onclick="sendToMaya('What other programs does Tiffany offer?')">What other programs does Tiffany offer?</button>
+    </div>
+
     <script type="module">
       import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
       createChat({
         webhookUrl: "https://n8n.srv1512353.hstgr.cloud/webhook/e1798891-dcb2-4ba3-817e-2c0e12dc8869/chat",
-        initialMessages: ["Hi! I am the Reset Challenge Support Assistant. How can I help you today?"],
+        initialMessages: [
+          "Hey there! I'm Maya, your personal support guide for The Budget Nista family!",
+          "Whether you have questions about the Reset Challenge, need help with your enrollment emails, or want to learn more about Tiffany's programs — I've got you covered!",
+          "How can I help you today?"
+        ],
         i18n: {
           en: {
-            title: "Reset Challenge Support",
-            subtitle: "Ask me anything about your enrollment, emails, or the program.",
+            title: "Chat with Maya",
+            subtitle: "Reset Challenge Support • The Budget Nista",
             inputPlaceholder: "Type your message...",
+            getStarted: "New Conversation",
+            closeButtonTooltip: "Close chat"
           }
         }
       });
+    </script>
+
+    <script>
+      function sendToMaya(text) {
+        document.getElementById('maya-suggestions').style.display = 'none';
+
+        var attempts = 0;
+        var interval = setInterval(function() {
+          attempts++;
+          if (attempts > 30) { clearInterval(interval); return; }
+
+          var input = document.querySelector(
+            '.chat-input, input[placeholder*="message"], input[placeholder*="Message"], textarea[placeholder*="message"], .n8n-chat__input input, .n8n-chat input'
+          );
+
+          if (input) {
+            clearInterval(interval);
+            var proto = Object.getPrototypeOf(input);
+            var desc = Object.getOwnPropertyDescriptor(proto, 'value');
+            if (desc && desc.set) desc.set.call(input, text);
+            else input.value = text;
+
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+
+            setTimeout(function() {
+              var sendBtn = document.querySelector('button[type="submit"], .send-button, .chat-send-button');
+              if (sendBtn) {
+                sendBtn.click();
+              } else {
+                ['keydown', 'keypress', 'keyup'].forEach(function(evtName) {
+                  input.dispatchEvent(new KeyboardEvent(evtName, { key: 'Enter', keyCode: 13, bubbles: true }));
+                });
+              }
+            }, 150);
+          }
+        }, 400);
+      }
     </script>
   </body>
 </html>
