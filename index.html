@@ -3,20 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jimuel Pararuan | CRM & Marketing Automation Specialist</title>
-    <meta name="description" content="CRM & Marketing Automation Specialist — GoHighLevel, Zapier, Brivity CRM expert helping businesses automate workflows and reclaim their time." />
-    <meta property="og:title" content="Jimuel Pararuan | CRM & Marketing Automation Specialist" />
+    <title>Jimuel Pararuan | CRM &amp; Marketing Automation Specialist</title>
+    <meta name="description" content="CRM &amp; Marketing Automation Specialist GoHighLevel, Zapier, Brivity CRM expert helping businesses automate workflows and reclaim their time." />
+    <meta property="og:title" content="Jimuel Pararuan | CRM &amp; Marketing Automation Specialist" />
     <meta property="og:description" content="Helping businesses automate workflows with GoHighLevel, Zapier, and Brivity CRM." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jimuel Pararuan | CRM & Marketing Automation Specialist" />
+    <meta name="twitter:title" content="Jimuel Pararuan | CRM &amp; Marketing Automation Specialist" />
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     <script type="module" crossorigin src="/Jim/assets/index-DBV7k-rf.js"></script>
     <link rel="stylesheet" crossorigin href="/Jim/assets/index-CKCoJCes.css">
   </head>
   <body>
-    <!-- Hidden SVG sharpen filter for workflow images -->
     <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="img-sharpen" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
@@ -25,5 +25,19 @@
       </defs>
     </svg>
     <div id="root"></div>
+    <script type="module">
+      import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+      createChat({
+        webhookUrl: "https://n8n.srv1512353.hstgr.cloud/webhook/e1798891-dcb2-4ba3-817e-2c0e12dc8869/chat",
+        initialMessages: ["Hi! I am the Reset Challenge Support Assistant. How can I help you today?"],
+        i18n: {
+          en: {
+            title: "Reset Challenge Support",
+            subtitle: "Ask me anything about your enrollment, emails, or the program.",
+            inputPlaceholder: "Type your message...",
+          }
+        }
+      });
+    </script>
   </body>
 </html>
