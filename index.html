@@ -16,7 +16,6 @@
     <script type="module" crossorigin src="/Jim/assets/index-DBV7k-rf.js"></script>
     <link rel="stylesheet" crossorigin href="/Jim/assets/index-CKCoJCes.css">
     <style>
-      /* Maya chat brand colors */
       :root {
         --chat--color-primary: #6D28D9;
         --chat--color-primary-shade-50: #5B21B6;
@@ -47,8 +46,19 @@
 
     <script type="module">
       import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+
+      // Clear saved chat session so every page load starts completely fresh
+      try {
+        Object.keys(localStorage).forEach(function(k) {
+          if (k.toLowerCase().includes('n8n') || k.toLowerCase().includes('chat')) {
+            localStorage.removeItem(k);
+          }
+        });
+      } catch(e) {}
+
       createChat({
         webhookUrl: "https://n8n.srv1512353.hstgr.cloud/webhook/e1798891-dcb2-4ba3-817e-2c0e12dc8869/chat",
+        loadPreviousSession: false,
         initialMessages: [
           "Hey there! I'm Maya, your personal support guide for The Budget Nista family!",
           "Whether you have questions about the Reset Challenge, need help with your enrollment emails, or want to learn more about Tiffany's programs — I've got you covered!",
@@ -69,28 +79,24 @@
     <script>
       var suggestionsInjected = false;
 
-      // Inject suggestion buttons directly inside the chat widget DOM
       var injectInterval = setInterval(function () {
         if (suggestionsInjected) { clearInterval(injectInterval); return; }
 
-        // Wait for the chat textarea to appear (means chat is open & rendered)
         var input =
           document.querySelector('textarea[placeholder="Type your message..."]') ||
           document.querySelector('input[placeholder="Type your message..."]');
 
-        if (!input || input.offsetWidth === 0) return; // not visible yet
+        if (!input || input.offsetWidth === 0) return;
 
-        // Walk up: textarea → input wrapper → input row → chat body
-        var inputRow   = input.parentNode;          // e.g. div wrapping textarea + button
-        var inputBlock = inputRow && inputRow.parentNode;   // e.g. the whole footer block
-        var chatBody   = inputBlock && inputBlock.parentNode; // e.g. the chat window body
+        var inputRow   = input.parentNode;
+        var inputBlock = inputRow && inputRow.parentNode;
+        var chatBody   = inputBlock && inputBlock.parentNode;
 
         if (!chatBody || !inputBlock) return;
 
         suggestionsInjected = true;
         clearInterval(injectInterval);
 
-        // Build the suggestion container
         var container = document.createElement('div');
         container.id = 'maya-suggestions-injected';
         container.style.cssText = [
@@ -141,7 +147,6 @@
           container.appendChild(btn);
         });
 
-        // Insert the suggestions INSIDE the chat body, just before the input block
         chatBody.insertBefore(container, inputBlock);
       }, 400);
 
